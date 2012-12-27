@@ -947,7 +947,7 @@ function f_test(data) {
 	API.sendChat('/me Systems are online and functional! '+s);
 }
 function f_reload(data) {
-    API.sendChat('/me [TERMINATING]');
+    API.sendChat('/me is dead. Prisoners get a freeday!');
     window.setTimeout(function(){location.reload();}, 1000);
 }
 function f_userIntentLeave(data) {
