@@ -71,13 +71,13 @@
 var o_settings = {
     	autoSkip: true,
     	autoWoot: true,
-    	autoQueue: true,
+    	autoQueue: false,
     	welcomeMsg: true,
     	goodbyeMsg: true,
-	profanityfilter: true,
+	profanityfilter: false,
 	announcer: true,
 	maxSongLength: 8, // in mins.
-    	rules: 'Play EDM only, no Trap. 8 min max. Please show love and respect to everyone.',
+    	rules: 'Please view the channel info for the channel rules',
     	welcome: 'The staff wishes you Happy Holidays!',
 	strictMode: false,
 	i_timerID: null,
@@ -121,11 +121,11 @@ var o_chatcmds = {
 		needsPerm: false,
 		visible: true
 	},
-	'/fb': {
+	/*'/fb': {
 		f: f_fb,
 		needsPerm: false,
 		visible: true
-	},
+	},*/
 	'/joke': {
 		f: f_joke,
 		needsPerm: false,
@@ -146,12 +146,12 @@ var o_chatcmds = {
 		needsPerm: false,
 		visible: true
 	},
-	'hugs foxbot': {
+	'hugs warden': {
 		f: f_hug,
 		needsPerm: false,
 		visible: true
 	},
-	'rapes foxbot': {
+	'rapes warden': {
 		f: f_rape,
 		needsPerm: false,
 			visible: true
@@ -790,7 +790,7 @@ A. A pair of slippers.\
 
 //Begin Function Declarations
 function f_foxbotInit() {
-	API.sendChat('/me Foxbot activated!');
+	API.sendChat('/me is the new warden!');
 	b_hasModRights = API.getSelf().permission.toString()>1;
 	// now all the event listeners
 	API.addEventListener(API.USER_JOIN, join);
@@ -802,7 +802,7 @@ function f_foxbotInit() {
 	Playback.setVolume(0);
 }
 function join(user){
-	if(user.id=="50aeb20fc3b97a2cb4c2d804"){
+	if(user.id=="50aeb2dc3e083e18fa2dadd9"){
 		API.sendChat("/me :: All hail our Supreme Overlord, @"+user.username+" ! Welcome back master!");
 	}
 	else if(user.permission.toString()>1){
@@ -816,7 +816,7 @@ function join(user){
 
 
 function leave(user){
-	if(user.id=="50aeb20fc3b97a2cb4c2d804"){
+	if(user.id=="50aeb2dc3e083e18fa2dadd9"){
 		API.sendChat("/me :: All hail our Supreme Overlord, @"+user.username+" ! Thank you for gracing us with your presence!");
 	}
 	else if(user.permission.toString()>1){
@@ -829,13 +829,9 @@ function leave(user){
 
 
 function f_curate(data){
-	if(data.user.id=="50aeb020d6e4a94f774740a9"){
-		API.sendChat("/me Saved this for later.");
-	}
-	else{
-		API.sendChat("/me " + data.user.username + " loves this track!");
-	}
+	API.sendChat("/me " + data.user.username + " loves this track!");
 }
+
 function f_commands(data){
 	var cmds = '';
 	for(var cmd in o_chatcmds){
@@ -924,7 +920,7 @@ function f_rule(data) {
 	API.sendChat('/me Rules: '+o_settings.rules);
 }
 function f_about(data) {
-	API.sendChat('/me [foxbot v'+cur_Vers+'] by 1NT, foxtrotfire, royal soda, [tw].me, Linear Logic. Type in "/commands" to find out how to interact with me.');
+	API.sendChat('/me [foxbot v'+cur_Vers+'] by 1NT, foxtrotfire, royal soda, [tw].me, Linear Logic. Modified by Dis. Type in "/commands" to find out how to interact with me.');
 }
 function f_brb(data) {
 	API.sendChat('@'+data.from+' Hurry back!!');
@@ -934,103 +930,6 @@ function f_nou(data) {
 }
 function f_drink(data) {
 	switch(data.fromID){
-		case "50aeb0af3e083e18fa2d5d6e":
-			//SartheBoat
-			API.sendChat('Some gasoline to fuel the @'+data.from+' ! The ship has been refueled, captain!');
-			break;
-		case "50aeb5e83e083e18fa2e20a0":
-			//WJG
-			API.sendChat("Here's your hard cider, @"+data.from+" . Enjoy!");
-			break;
-		case "50aeb07a877b9217e2fbffb2":
-			//Guess who? It's already in there
-			API.sendChat("The master has spoken! One Absolut Vodka for @"+data.from+" !");
-			break;
-		case "50aeb020d6e4a94f774740a9":
-			//foxtrot
-			API.sendChat("Sorry, we're all out of alcohol. Here's your apple juice, @"+data.from+" .");
-			break;
-		case "50aeb3fa3e083e18fa2ddbed":
-			//FramedTKE
-			API.sendChat("Dang, you were framed? Here's a jagerbomb to help you get through the night, @"+data.from+" . All your drinks are on the house!");
-			break;
-		case "50aeb3ea3e083e18fa2dd996":
-			//[SOL]
-			API.sendChat("Here's your scotch, Mr. "+data.from+" , sir.");
-			break;
-		case "50aeb3fd96fba52c3ca0d0a6":
-			//krstenalex
-			API.sendChat("Rum delivered by Ms. Jolie? Hm. I can do the rum but I don't know about Ms. Jolie. Ah, speak of the devil, she just walked through the door. Here is rum your with a side of Angelina Jolie, @"+data.from+" !");
-			break;
-		case "50aeb3fd96fba52c3ca0d0c2":
-			//micro
-			API.sendChat("Here's some tequila and chocolate milk. Down one drink, or down both. The choice is yours, @"+data.from+" .");
-			break;
-		case "50aeb3aa877b9217e2fc8036":
-			//CopyLeft
-			API.sendChat("Here is a bloody mary, with some actual blood from Mary... Please refrain from ordering a drink, @"+data.from+" , as we are running out of people named Mary...");
-			break;
-		case "50aeafe696fba52c3ca02f1b":
-			//Linear Logic
-			API.sendChat("Ah, Mr. @"+data.from+" ! Here's your mojito, good sir!");
-			break;
-		case "50aeb301c3b97a2cb4c2fa57":
-			//Mamushka
-			API.sendChat("Shirley Temple? Here you go! Enjoy, "+data.from+" !");
-			break;
-		case "50aeb310d6e4a94f7747a527":
-			//Wobbles
-			API.sendChat("Here's your Apple Martini, Mr @"+data.from+" . Enjoy!");
-			break;
-		case "50aeb402877b9217e2fc8dcf":
-			//Syvel
-			API.sendChat("And a Dunkel Hefeweizen for @"+data.from+" !");
-			break;
-		case "50aeb3fd877b9217e2fc8d13":
-			//DJ MC Wheelchair
-			API.sendChat("Here's your bottle of Jack, "+data.from+" . When you leave for the night, remember to come back!");
-			break;
-		case "50aeb20fc3b97a2cb4c2d804":
-			// Bass Addict
-			API.sendChat("The Supreme Overlord wants cranberry juice! What are you doing? Yes, the Supreme Overlord. Yes, @"+data.from+"Hurry up. Get cranberry juice. Yes, now.");
-			API.sendchat("Sorry for the wait Mr. Supreme Overlord, sir. *Hands @"+data.from+" a glass of cranberry juice.* There is more in the back if you need it, Mr. Supreme Overlord, sir.");
-			break;
-		case "50c22bc9877b92490a396b28":
-			//Acidus. He gets a special one because he helped with the code. No, he did not get full code. Just one tiny snippet.
-			API.sendChat("Here is your bottle of Valmiermuiza, "+data.from+" . You get a lifetime supply, on the house. So feel free to grab another!");
-			break;
-		case "50bd6f1596fba554c159e1ab":
-			//[tw].me
-			API.sendChat("Hahaha @"+data.from+", get back to work! No drink for you!");
-			break;
-		case "50aeb04ac3b97a2cb4c29c3c":
-			//[tw]Mixolydian Muse
-			API.sendChat("Your usual? Here's your Gold Medal Taiwan Beer, "+data.from+" !");
-			break;
-		case "50aeb02ad6e4a94f77474299":
-			//[F]oxtrot[Q]ontrol
-			API.sendChat("Here's your Rum @"+data.from+", Yarr matey!");
-			break;
-		case "50bfaa69c3b97a770bf85bbc":
-			//97#DJMnC#79
-			API.sendChat("Here's your Coca Cola @"+data.from+", Enjoy!");
-			break;
-		case "50aeb11a96fba52c3ca0699e":
-			//super
-			API.sendChat("Here's your Absinthe Frappé @"+data.from+", Enjoy good sir!");
-			break;
-		case "50aeae9bc3b97a2cb4c25954":
-			//Kendall
-			API.sendChat("Here's your water @"+data.from+", Enjoy!");
-			break;
-		case "50aeb0173e083e18fa2d3de0":
-			//Powdered Toast Man
-			API.sendChat("Here's your cheap redneck whiskey @"+data.from+", Enjoy!");
-			break;
-		case "50aeb04a3e083e18fa2d48f0":
-			//Ace1994
-			API.sendChat("Here's your Mystery Drink @"+data.from+", nobody knows what is in it, so Enjoy!");
-			break;
 		default:
 			API.sendChat('Here is your generic strong alcoholic beverage @'+data.from+' , enjoy!');
 	}
@@ -1180,12 +1079,12 @@ function f_fb(data){
 	API.sendChat("/me Enjoying the music and awesome people in this room? Consider joining our facebook page at http://goo.gl/vpHWz and Follow us on twitter @ElectronicELE !");
 }
 function f_retrylist(data){
-	API.sendChat("/me  Check out the list of songs we would rather you NOT play at http://goo.gl/9tLE7 !")
+	API.sendChat("/me  Check out the list of songs we would rather you NOT play at https://raw.github.com/NullEntity/foxbot/master/Banned%20Songs !")
 }
 function f_announcer(){
 	if(o_settings.announcer){
-		API.sendChat("/me Enjoying the music and awesome people in this room? Consider joining our facebook group at http://goo.gl/vpHWz and Follow us on twitter @ElectronicELE !");
-		window.setTimeout(function(){API.sendChat("/me Also check out the list of songs we would rather you NOT play at http://goo.gl/9tLE7 !");},1000);
+		API.sendChat("/me Hi guys! This is Lifepunch.net's unofficial Plug.dj. Check out our forums and Garry's Mod servers!");
+		window.setTimeout(function(){API.sendChat("/me View the Do Not Play list over here: https://raw.github.com/NullEntity/foxbot/master/Banned%20Songs");},1000);
 	}
 }
 window.setTimeout(function(){f_foxbotInit();},5000);
