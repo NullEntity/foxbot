@@ -795,7 +795,7 @@ function f_foxbotInit() {
 	// now all the event listeners
 	API.addEventListener(API.USER_JOIN, join);
 	API.addEventListener(API.USER_LEAVE, leave);
-	API.addEventListener("curateUpdate", f_curate);
+	API.addEventListener(API.CURATE_UPDATE, f_curate);
 	API.addEventListener(API.CHAT, f_checkChat);
 	API.addEventListener(API.DJ_ADVANCE, f_djAdvance);
 	// mute the player
@@ -805,11 +805,11 @@ function join(user){
 	if(user.id=="50aeb2dc3e083e18fa2dadd9"){
 		API.sendChat("/me :: All hail our Supreme Overlord, @"+user.username+" ! Welcome back master!");
 	}
-	else if(user.permission.toString()>1){
-		API.sendChat("/me :: A wild moderator appears! Wait, no. We know this one. The moderator's name is @"+user.username+" .");
+	else if(user.permission.toString() > 1){
+		API.sendChat("/me :: A wild @"+user.username+" has appeared!");
 	}
 	else{
-		API.sendChat("/me :: Welcome @" + user.username + " to " + Models.room.data.name + ". "+o_settings.welcome);
+		API.sendChat("/me :: Welcome @" + user.username + " to Lifepunch.net's unofficial Plug.dj room. "+o_settings.welcome);
 		//window.setTimeout(function(){f_rule({from: user.username});}, 1000); //Uncomment to send rules
 	}
 }
