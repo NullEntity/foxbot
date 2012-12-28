@@ -141,6 +141,11 @@ var o_chatcmds = {
 		needsPerm: false,
 		visible: true
 	},
+	'/whywoot': {
+		f: f_whywhoot,
+		needsPerm: false,
+		visible: true
+	},
 	'/rl': {
 		f: f_retrylist,
 		needsPerm: false,
@@ -151,10 +156,25 @@ var o_chatcmds = {
 		needsPerm: false,
 		visible: true
 	},
+	'/me hugs warden': {
+		f: f_hug,
+		needsPerm: false,
+		visible: true
+	},
 	'rapes warden': {
 		f: f_rape,
 		needsPerm: false,
-			visible: true
+		visible: true
+	},
+	'/me rapes warden': {
+		f: f_rape,
+		needsPerm: false,
+		visible: true
+	},
+	'/warden': {
+		f: f_warden,
+		needsPerm: false,
+		visible: true
 	},
 	/////////////////////////////////////////////
 	// chmod 554
@@ -233,11 +253,6 @@ var o_chatcmds = {
 	}, 
 	'plug.dj/': {
 		f: f_nospam,
-		needsPerm: false,
-		visible: false
-	},	
-	'suidobashijuko': {
-		f: f_suidobashijuko,
 		needsPerm: false,
 		visible: false
 	},
@@ -829,7 +844,7 @@ function leave(user){
 
 
 function f_curate(data){
-	API.sendChat("/me " + data.user.username + " loves this track!");
+	API.sendChat("/me :: " + data.user.username + " loves this track!");
 }
 
 function f_commands(data){
@@ -840,21 +855,21 @@ function f_commands(data){
 		}
 	}
 	cmds_clean = cmds.slice(0, -2);
-	API.sendChat('/me Commands currently supported are: '+cmds_clean);
-	window.setTimeout(function(){API.sendChat("/me Commands always trigger, staff should be careful with mod commands!");},5000);
+	API.sendChat('/me :: Commands currently supported are: ' + cmds_clean);
+	window.setTimeout(function(){API.sendChat("/me :: Commands always trigger, staff should be careful with mod commands!");},5000);
 }
 
 function f_skip(data) {
-    API.sendChat('/me Current DJ has been skipped by operator!');
+    API.sendChat('/me :: Current DJ has been skipped by operator!');
     window.setTimeout(function(){new ModerationForceSkipService(Models.room.data.historyID);}, 1000);
 	window.setTimeout(function(){API.sendChat("/me Your song got skipped because it was either not on genre, overplayed or (the outro) was too long.");}, 2000);
 }
 function f_long() {
-	API.sendChat('@'+o_tmp.username+' Your song has played for '+o_settings.maxSongLength+' minutes and will now be skipped!');
+	API.sendChat('/me :: @'+o_tmp.username+' Your song has played for ' + o_settings.maxSongLength + ' minutes and will now be skipped!');
     window.setTimeout(function(){new ModerationForceSkipService(Models.room.data.historyID);}, 1000);
 }
 function f_lock(data) {
-        API.sendChat('/me Dj Booth has been locked by operator!');
+        API.sendChat('/me :: DJ Booth has been locked!');
         rpcGW.execute('room.update_options', null, Models.room.data.id,
               {
                 name: Models.room.data.name,
@@ -867,7 +882,7 @@ function f_lock(data) {
 		);
 }
 function f_unlock(data){
-	API.sendChat('/me Dj Booth has been unlocked by operator!');
+	API.sendChat('/me :: DJ Booth has been unlocked!');
     rpcGW.execute('room.update_options', null, Models.room.data.id,
 		{
 			name: Models.room.data.name,
@@ -880,7 +895,7 @@ function f_unlock(data){
 	);
 }
 function f_retry(data) {
-	API.sendChat('/me Please choose a different song and try again.');
+	API.sendChat('/me :: Please choose a different song and try again.');
 	window.setTimeout(function(){rpcGW.execute('room.update_options', null, Models.room.data.id,
 		{
 			name: Models.room.data.name,
@@ -914,7 +929,7 @@ function f_hug(data){
 	API.sendChat('/me hugs @'+data.from+'!');
 }
 function f_dance(data){
-	API.sendChat('/me Is on Fire!');
+	API.sendChat('/me is on Fire!');
 }
 function f_rule(data) {
 	API.sendChat('/me Rules: '+o_settings.rules);
@@ -935,9 +950,11 @@ function f_drink(data) {
 	}
 }
 function f_whymeh(data) {
-	API.sendChat('/me Please reserve mehs for songs that are A: Troll songs, B: Truly terrible, or C: Overplayed. If you are simply not feeling a song remain neutral.');
+	API.sendChat('/me :: Please reserve mehs for songs that are A: Troll songs, B: Truly terrible, or C: Overplayed. If you are simply not feeling a song remain neutral.');
 }
-
+function f_whywoot(data) {
+	API.sendChat('/me :: Please rate songs! When you woot a DJ, both you and them get a point. We have a script to automatically woot DJs here: http://goo.gl/o94YH');
+}
 function f_joke(data) {
     n = Math.floor(Math.random()*a_jokes.length);
     API.sendChat('/me Joke #'+n+': '+a_jokes[n]);
@@ -1060,9 +1077,6 @@ function f_djAdvance(obj){
 		}
 	}
 }
-function f_suidobashijuko(data){
-	API.sendChat("Why are we talking about the suidobashijuko again? Are you going to buy me one?");
-}
 function f_nospam(data){
 	API.sendChat("Hey, @"+data.from+" ! Please do not adverise plug.dj rooms in here, thanks!");
 	API.moderateDeleteChat(data.chatID);
@@ -1086,6 +1100,9 @@ function f_announcer(){
 		API.sendChat("/me Hi guys! This is Lifepunch.net's unofficial Plug.dj. Check out our forums and Garry's Mod servers!");
 		window.setTimeout(function(){API.sendChat("/me View the Do Not Play list over here: https://raw.github.com/NullEntity/foxbot/master/Banned%20Songs");},1000);
 	}
+}
+function f_warden(data) {
+	API.sendChat("/me is already the warden!")
 }
 window.setTimeout(function(){f_foxbotInit();},5000);
 window.setInterval(function(){f_announcer();},(1000 * 30 * 60));
