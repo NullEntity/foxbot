@@ -142,7 +142,7 @@ var o_chatcmds = {
 		visible: true
 	},
 	'/whywoot': {
-		f: f_whywhoot,
+		f: f_whywoot,
 		needsPerm: false,
 		visible: true
 	},
