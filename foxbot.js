@@ -1000,9 +1000,9 @@ function f_checkChat(data) {
 //Will work on this. It's kind of annoying as it stands and doesn't allow for cool stuff
 	if((data.type == "message") && (data.fromID != API.getSelf().id) ) {
 		for(var s in o_chatcmds) {
-			if(data.message.toString().toLowerCase().indexOf(s) != -1) { // The only requesite of this more efficient chat parsing system is that all chat vars are lowercase
+			if(data.message.toString().toLowerCase().indexOf(s) == 0) { // The only requesite of this more efficient chat parsing system is that all chat vars are lowercase
 				if(o_chatcmds[s].needsPerm){
-					if(API.getUser(data.fromID).permission.toString() == 0){
+					if(API.getUser(data.fromID).permission.toString() > 0){
 						o_chatcmds[s].f(data);
 					}
 					else{
