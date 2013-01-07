@@ -1002,7 +1002,7 @@ function f_checkChat(data) {
 		for(var s in o_chatcmds) {
 			if(data.message.toString().toLowerCase().indexOf(s) != -1) { // The only requesite of this more efficient chat parsing system is that all chat vars are lowercase
 				if(o_chatcmds[s].needsPerm){
-					if(API.getUser(data.fromID).permission.toString()>1){
+					if(API.getUser(data.fromID).permission.toString() == 0){
 						o_chatcmds[s].f(data);
 					}
 					else{
